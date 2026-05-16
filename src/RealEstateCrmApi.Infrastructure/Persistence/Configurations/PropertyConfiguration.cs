@@ -57,7 +57,6 @@ public class PropertyConfiguration : IEntityTypeConfiguration<Property>
             .HasForeignKey(p => p.AssignedUserId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasIndex(p => p.AssignedUserId);
         builder.HasIndex(p => p.Status);
         builder.HasIndex(p => p.City);
     }
