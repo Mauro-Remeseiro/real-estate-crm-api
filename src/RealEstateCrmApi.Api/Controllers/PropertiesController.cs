@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RealEstateCrmApi.Application.Common.Exceptions;
 using RealEstateCrmApi.Application.Properties;
@@ -38,9 +39,11 @@ public class PropertiesController : ControllerBase
         return Ok(property);
     }
 
+    [Authorize]
     [HttpPost]
     [ProducesResponseType(typeof(PropertyDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<PropertyDto>> Create(
         [FromBody] CreatePropertyRequest request,
         CancellationToken cancellationToken)
@@ -53,6 +56,10 @@ public class PropertiesController : ControllerBase
         catch (ValidationException ex)
         {
             return BadRequest(new { message = ex.Message });
+        }
+        catch (UnauthorizedException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
         }
     }
 }

@@ -23,6 +23,4 @@ public class CreatePropertyRequest
     public int Bathrooms { get; set; }
 
     public int SquareMeters { get; set; }
-
-    public Guid? AssignedUserId { get; set; }
 }

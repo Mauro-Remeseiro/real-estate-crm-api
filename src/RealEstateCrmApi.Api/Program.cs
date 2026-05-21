@@ -2,6 +2,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RealEstateCrmApi.Api;
+using RealEstateCrmApi.Api.Swagger;
 using RealEstateCrmApi.Application;
 using RealEstateCrmApi.Application.Common.Models;
 using RealEstateCrmApi.Infrastructure;
@@ -22,22 +24,10 @@ builder.Services.AddSwaggerGen(options =>
         Description = "JWT Authorization header. Example: Bearer {token}"
     });
 
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
+    options.OperationFilter<AuthorizeCheckOperationFilter>();
 });
 
+builder.Services.AddApiServices();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 

@@ -9,10 +9,14 @@ namespace RealEstateCrmApi.Application.Properties;
 public class PropertyService : IPropertyService
 {
     private readonly IApplicationDbContext _context;
+    private readonly ICurrentUserService _currentUser;
 
-    public PropertyService(IApplicationDbContext context)
+    public PropertyService(
+        IApplicationDbContext context,
+        ICurrentUserService currentUser)
     {
         _context = context;
+        _currentUser = currentUser;
     }
 
     public async Task<IReadOnlyList<PropertyDto>> GetAllAsync(CancellationToken cancellationToken = default)
@@ -40,18 +44,20 @@ public class PropertyService : IPropertyService
     {
         ValidateCreateRequest(request);
 
-        if (request.AssignedUserId.HasValue)
+        if (!_currentUser.IsAuthenticated || _currentUser.UserId is null)
         {
-            var userExists = await _context.Users
-                .AnyAsync(u => u.Id == request.AssignedUserId.Value, cancellationToken);
-
-            if (!userExists)
-            {
-                throw new ValidationException("Assigned user does not exist.");
-            }
+            throw new UnauthorizedException("Authentication is required.");
         }
 
-        var property = MapToEntity(request);
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Id == _currentUser.UserId.Value, cancellationToken);
+
+        if (user is null || !user.IsActive)
+        {
+            throw new UnauthorizedException("User account is invalid or inactive.");
+        }
+
+        var property = MapToEntity(request, user.Id);
 
         _context.Properties.Add(property);
         await _context.SaveChangesAsync(cancellationToken);
@@ -87,7 +93,7 @@ public class PropertyService : IPropertyService
         }
     }
 
-    private static Property MapToEntity(CreatePropertyRequest request)
+    private static Property MapToEntity(CreatePropertyRequest request, Guid assignedUserId)
     {
         return new Property
         {
@@ -102,7 +108,7 @@ public class PropertyService : IPropertyService
             Bedrooms = request.Bedrooms,
             Bathrooms = request.Bathrooms,
             SquareMeters = request.SquareMeters,
-            AssignedUserId = request.AssignedUserId,
+            AssignedUserId = assignedUserId,
             CreatedAt = DateTime.UtcNow
         };
     }
