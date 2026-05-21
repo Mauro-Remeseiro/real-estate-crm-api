@@ -1,9 +1,8 @@
-using RealEstateCrmApi.Domain.Common;
 using RealEstateCrmApi.Domain.Enums;
 
-namespace RealEstateCrmApi.Domain.Entities;
+namespace RealEstateCrmApi.Application.Properties;
 
-public class Property : BaseEntity
+public class CreatePropertyRequest
 {
     public string Title { get; set; } = string.Empty;
 
@@ -17,7 +16,7 @@ public class Property : BaseEntity
 
     public PropertyType Type { get; set; }
 
-    public PropertyStatus Status { get; set; }
+    public PropertyStatus? Status { get; set; }
 
     public int Bedrooms { get; set; }
 

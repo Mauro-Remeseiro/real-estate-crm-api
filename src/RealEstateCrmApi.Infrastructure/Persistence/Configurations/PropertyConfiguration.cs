@@ -49,13 +49,11 @@ public class PropertyConfiguration : IEntityTypeConfiguration<Property>
         builder.Property(p => p.SquareMeters)
             .IsRequired();
 
-        builder.Property(p => p.AssignedUserId)
-            .IsRequired();
-
         builder.HasOne<User>()
             .WithMany()
             .HasForeignKey(p => p.AssignedUserId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired(false);
 
         builder.HasIndex(p => p.Status);
         builder.HasIndex(p => p.City);

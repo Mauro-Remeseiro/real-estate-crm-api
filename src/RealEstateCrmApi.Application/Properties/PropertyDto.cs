@@ -1,10 +1,11 @@
-using RealEstateCrmApi.Domain.Common;
 using RealEstateCrmApi.Domain.Enums;
 
-namespace RealEstateCrmApi.Domain.Entities;
+namespace RealEstateCrmApi.Application.Properties;
 
-public class Property : BaseEntity
+public class PropertyDto
 {
+    public Guid Id { get; set; }
+
     public string Title { get; set; } = string.Empty;
 
     public string Description { get; set; } = string.Empty;
@@ -26,4 +27,8 @@ public class Property : BaseEntity
     public int SquareMeters { get; set; }
 
     public Guid? AssignedUserId { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime? UpdatedAt { get; set; }
 }
