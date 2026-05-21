@@ -17,6 +17,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<Property> Properties => Set<Property>();
 
+    public DbSet<Visit> Visits => Set<Visit>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);

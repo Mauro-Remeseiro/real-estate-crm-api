@@ -11,5 +11,7 @@ public interface IApplicationDbContext
 
     DbSet<Property> Properties { get; }
 
+    DbSet<Visit> Visits { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
