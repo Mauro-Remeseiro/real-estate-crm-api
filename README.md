@@ -1,57 +1,62 @@
 # Real Estate CRM API
 
-Real Estate CRM API is a backend project built with ASP.NET Core for managing real estate business operations such as properties, clients, visits, offers and commercial follow-up.
+Backend API for a real estate CRM system built with **ASP.NET Core**, **Entity Framework Core**, **SQL Server**, **JWT Authentication** and **Docker**.
 
-The goal of this project is to demonstrate backend development skills using C#, .NET, Entity Framework Core, SQL Server, REST APIs, authentication, authorization and DevOps practices.
+This project was developed as a backend portfolio project, focusing on real-world API development practices such as clean architecture, authentication, database persistence, migrations, protected endpoints and local development with Docker.
 
-## Tech Stack
+---
 
-- C#
-- ASP.NET Core Web API
-- Entity Framework Core
-- SQL Server
-- LINQ
-- JWT Authentication
-- Swagger / OpenAPI
-- Git
-- Docker
-- GitHub Actions
-- Clean Architecture principles
+## Project Overview
 
-## DevOps Practices
+Real Estate CRM API is a backend application designed to manage core operations of a real estate business.
 
-This project will progressively include DevOps practices such as:
+The system currently supports:
 
-- Git-based workflow
-- Dockerized development environment
-- CI pipeline with GitHub Actions
-- Automated build and test execution
-- Environment-based configuration
-- API documentation with Swagger
-- Basic logging and error handling
-- Future deployment to Azure
-- Future infrastructure automation with Terraform
-
-## Main Backend Features
-
-- RESTful API design
-- User authentication with JWT
-- Role-based authorization
+- User registration and login
+- JWT-based authentication
 - Property management
 - Client management
 - Visit scheduling
-- Offer tracking
-- Commercial follow-up records
-- SQL Server database integration
-- Entity Framework Core migrations
-- DTOs and service layer
-- Global error handling
-- Input validation
+- Agent-based ownership using authenticated users
+- SQL Server persistence
+- Swagger/OpenAPI documentation
 
-## Project Status
+The goal of this project is to demonstrate backend development skills using technologies commonly used in professional .NET environments.
 
-This project is currently in development.
+---
 
-## Purpose
+## Tech Stack
 
-This project is part of my backend development portfolio and is focused on applying real-world .NET development and DevOps practices.
+- **C#**
+- **.NET 8**
+- **ASP.NET Core Web API**
+- **Entity Framework Core**
+- **SQL Server**
+- **JWT Authentication**
+- **Swagger / OpenAPI**
+- **Docker Compose**
+- **Git**
+- **Clean Architecture principles**
+
+---
+
+## Architecture
+
+The solution follows a clean and maintainable layered structure:
+
+```text
+real-estate-crm-api/
+│
+├── src/
+│   ├── RealEstateCrmApi.Api/
+│   ├── RealEstateCrmApi.Application/
+│   ├── RealEstateCrmApi.Domain/
+│   └── RealEstateCrmApi.Infrastructure/
+│
+├── tests/
+│   ├── RealEstateCrmApi.Domain.UnitTests/
+│   └── RealEstateCrmApi.Api.IntegrationTests/
+│
+├── docker-compose.yml
+├── .env.example
+└── README.md
