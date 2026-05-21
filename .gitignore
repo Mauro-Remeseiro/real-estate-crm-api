@@ -9,7 +9,10 @@
 *.user
 *.userosscache
 *.sln.docstates
-*.env
+# Local environment files (secrets). Keep .env.example tracked.
+.env
+.env.local
+!.env.example
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
